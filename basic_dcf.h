@@ -1,20 +1,12 @@
-/*
- *  basic_dcf.h
- *  ===========
- *  Copyright 2013 Paul Griffiths
- *  Email: mail@paulgriffiths.net
- *  
- *  Interface to basic discounted cash flow functions.
- *  
- *  Distributed under the terms of the GNU General Public License.
- *  http://www.gnu.org/licenses/
- */
-
-//! Basic financial functions
 /*!
- * Basic financial functions, including:
- * * present and future value calculations; and
- * * perpetuity and annuity valuations.
+ * \file        basic_dcf.h
+ * \brief       Basic discounted cash flow functions.
+ * \details     Basic discounted cash flow functions, including for
+ * calculating present and future values, values of perpetuities and
+ * annuities, loan repayments and sinking fund payments.
+ * \author      Paul Griffiths
+ * \copyright   Copyright 2013 Paul Griffiths. Distributed under the terms
+ * of the GNU General Public License. <http://www.gnu.org/licenses/>
  */
 
 #ifndef PG_FINANCIAL_FUNCTIONS_H
@@ -23,6 +15,7 @@
 #include <vector>
 #include "common_financial_types.h"
 
+//! User library namespace
 namespace financial {
 
 //! Calculates a compounding factor.
@@ -36,6 +29,14 @@ namespace financial {
  * $105 * 1.05 = $110.25 at the end of the second year. The compound
  * factor for two periods at 5% per period is therefore 110.25 / 100.0 =
  * 1.1025, since $100 * 1.1025 = $110.25.
+ *
+ * Sample usage:
+ * ~~~~{.cpp}
+ * double cf = financial::compound_factor(0.1, 7);
+ * std::cout << "The value of $100 invested today after 7 "
+ *           << "years at an annual interest rate of 10% wil be $"
+ *           << 100 * cf << std::endl;
+ * ~~~~
  *
  * \param interest_rate the periodic interest rate.
  * \param num_periods the number of periods over which to compound.
@@ -59,6 +60,14 @@ double compound_factor(const double interest_rate,
  * $105 * 1.05 = $110.25 at the end of the second year. The discount
  * factor for two periods at 5% per period is therefore 100.0 / 110.25 =
  * 0.90703, since $110.25 * 0.90703 = $100.
+ *
+ * Sample usage:
+ * ~~~~{.cpp}
+ * double df = financial::discount_factor(0.12, 4);
+ * std::cout << "The value of $1000 received in 4 years time "
+ *           << " is " << 1000 * df << " today, assuming an "
+ *           << "annual interest rate of 12%." << std::endl;
+ * ~~~~
  *
  * \param interest_rate the periodic interest rate.
  * \param num_periods the number of periods over which to discount.
@@ -86,6 +95,14 @@ double discount_factor(const double interest_rate,
  * rather than $104 in one year's time. In other words, under these conditions,
  * $100 today is worth more than $105 in one year's time, and the present
  * value of $105 received in one year's time is $100.
+ *
+ * Sample usage:
+ * ~~~~{.cpp}
+ * double pval = financial::pv(1000, 0.12, 4);
+ * std::cout << "The value of $1000 received in 4 years time "
+ *           << " is " << pval << " today, assuming an annual "
+ *           << "interest rate of 12%." << std::endl;
+ * ~~~~
  *
  * \param cashflow the nominal amount of the single cash flow
  * \param interest_rate the periodic interest rate
@@ -116,6 +133,14 @@ double pv(const double cashflow,
  * which would yield only $99 * 1.05% = $103.95, less than $105. In other
  * words, under these conditions, $105 in one year's time is worth more than
  * $99 today, and the future value of $100 today is $105 in one year's time.
+ *
+ * Sample usage:
+ * ~~~~{.cpp}
+ * double fval = financial::fv(100, 0.1, 7);
+ * std::cout << "The value of $100 invested today after 7 "
+ *           << "years at an annual interest rate of 10% wil be $"
+ *           << fval << std::endl;
+ * ~~~~
  *
  * \param cashflow the nominal amount of the invested cash flow
  * \param interest_rate the periodic interest rate
@@ -202,10 +227,10 @@ double pv_stream(const std::vector<TimedCashFlow>& cashflows,
  *
  * Example of usage:
  * ~~~~{.cpp}
- *     double sfp = financial::sinking_fund_payment(10000, 0.05, 5);
- *     std::cout << "To achieve a fund value of $10,000 in 5 years at "
- *                  "5% per year, you must invest " << sfp
- *                  " dollars at the end of each year." << std::endl;
+ * double sfp = financial::sinking_fund_payment(10000, 0.05, 5);
+ * std::cout << "To achieve a fund value of $10,000 in 5 years at "
+ *              "5% per year, you must invest " << sfp
+ *              " dollars at the end of each year." << std::endl;
  * ~~~~
  *
  * \param fund_value the terminal value of the sinking fund
@@ -227,6 +252,15 @@ double sinking_fund_payment(const double fund_value,
  * assumption, the periodic payment that must be made in order to pay
  * off the entire principal and any interest accrued over the life of
  * the loan by the payoff date.
+ *
+ * ~~~~{.cpp}
+ * double month_rate = std::pow(1.0425, 1/12) - 1;
+ * double lp = financial::loan_repayment(250000, month_rate, 360);
+ * std::cout << "To pay off a $250,000 mortgage after 30 "
+ *           << "years at a 4.25% annual interest rate, you "
+ *           << "will need to make 360 monthly payments of $"
+ *           << lp << " per month." << std::endl;
+ * ~~~~
  *
  * \param loan_amount the amount of the loan
  * \param interest_rate the periodic interest rate

@@ -1,20 +1,10 @@
-/*
- *  financial.h
- *  ===========
- *  Copyright 2013 Paul Griffiths
- *  Email: mail@paulgriffiths.net
- *  
- *  Main interface to financial library.
- *  
- *  Distributed under the terms of the GNU General Public License.
- *  http://www.gnu.org/licenses/
- */
-
 /*!
- * \brief       Financial library
- * \details     Financial functions and classes
+ * \file        financial.h
+ * \brief       Financial library user header
+ * \details     User header file for financial library.
  * \author      Paul Griffiths
- * \copyright   Distributed under the terms of the GNU General Public License.
+ * \copyright   Copyright 2013 Paul Griffiths. Distributed under the terms
+ * of the GNU General Public License. <http://www.gnu.org/licenses/>
  */
 
 #ifndef PG_FINANCIAL_H
