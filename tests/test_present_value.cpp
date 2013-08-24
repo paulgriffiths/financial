@@ -13,7 +13,7 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include "../basic_financial.h"
+#include "../basic_dcf.h"
 
 BOOST_AUTO_TEST_SUITE(pv_suite)
 

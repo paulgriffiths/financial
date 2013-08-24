@@ -35,6 +35,17 @@ enum class annuity_type {
     due                 /*!< due annuity, payment at beginning of period. */
 };
 
+//! Timed cash flow structure
+struct TimedCashFlow {
+    double amount;
+    double time_period;
+
+    explicit TimedCashFlow() : amount(0), time_period(0) {}
+    explicit TimedCashFlow(const double amount,
+                           const double time_period) :
+        amount(amount), time_period(time_period) {}
+};
+
 }               //  namespace financial
 
 #endif          //  PG_FINANCIAL_COMMON_TYPES_H

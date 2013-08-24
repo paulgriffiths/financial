@@ -20,6 +20,7 @@
 #ifndef PG_FINANCIAL_H
 #define PG_FINANCIAL_H
 
-#include "basic_financial.h"
+#include "common_financial_types.h"
+#include "basic_dcf.h"
 
 #endif          //  PG_FINANCIAL_H

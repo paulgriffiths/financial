@@ -1,10 +1,10 @@
 /*
- *  basic_financial.h
- *  =================
+ *  basic_dcf.h
+ *  ===========
  *  Copyright 2013 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *  
- *  Interface to basic financial functions.
+ *  Interface to basic discounted cash flow functions.
  *  
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
@@ -20,6 +20,7 @@
 #ifndef PG_FINANCIAL_FUNCTIONS_H
 #define PG_FINANCIAL_FUNCTIONS_H
 
+#include <vector>
 #include "common_financial_types.h"
 
 namespace financial {
@@ -69,12 +70,29 @@ double fv(const double cashflow,
  * \param cashflow the nominal amount of the periodic cash flow
  * \param interest_rate the periodic interest rate
  * \param at the type of perpetuity
- * \return the future value of the cash flow
+ * \return the present value of the perpetuity
  */
 
 double pv_perpetuity(const double cashflow,
                      const double interest_rate,
                      const enum annuity_type at = annuity_type::immediate);
+
+//! Calculates the present value of an annuity.
+/*!
+ * \param cashflow the nominal amount of the periodic cash flow
+ * \param interest_rate the periodic interest rate
+ * \param num_periods the number of periodic cash flows
+ * \param at the type of annuity
+ * \return the present value of the annuity
+ */
+
+double pv_annuity(const double cashflow,
+                  const double interest_rate,
+                  const int num_periods,
+                  const enum annuity_type at = annuity_type::immediate);
+
+double pv_stream(const std::vector<TimedCashFlow>& cashflows,
+                 const double interest_rate);
 
 }               //  namespace financial
 
