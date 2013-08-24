@@ -2,6 +2,10 @@
 unittests
 sample
 
+# Doxygen folders
+html
+latex
+
 # vim swap files
 *.swp
 

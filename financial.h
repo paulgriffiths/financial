@@ -10,6 +10,13 @@
  *  http://www.gnu.org/licenses/
  */
 
+/*!
+ * \brief       Financial library
+ * \details     Financial functions and classes
+ * \author      Paul Griffiths
+ * \copyright   Distributed under the terms of the GNU General Public License.
+ */
+
 #ifndef PG_FINANCIAL_H
 #define PG_FINANCIAL_H
 

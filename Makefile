@@ -28,9 +28,10 @@ CXX=g++
 ARFLAGS=rcs
 
 # Compiler flags
-CXXFLAGS=-std=c++11 -pedantic -Wall -Wextra -Weffc++
-CXX_DEBUG_FLAGS=-ggdb -DDEBUG -DDEBUG_ALL
-CXX_RELEASE_FLAGS=-O3 -DNDEBUG
+CXXFLAGS=-std=c++11 -pedantic -Wall -Wextra
+CXX_DEBUG_FLAGS=-Weffc++ -ggdb -DDEBUG -DDEBUG_ALL
+CXX_RELEASE_FLAGS=-Weffc++ -O3 -DNDEBUG
+CXX_TEST_FLAGS=-ggdb -DDEBUG -DDEBUG_ALL
 
 # Linker flags
 LDFLAGS=
@@ -47,6 +48,7 @@ TESTOBJS=tests/test_main.o
 TESTOBJS+=tests/test_discount_factor.o
 TESTOBJS+=tests/test_present_value.o
 TESTOBJS+=tests/test_future_value.o
+TESTOBJS+=tests/test_perpetuity.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -77,7 +79,7 @@ release: main
 
 # tests - builds unit tests
 .PHONY: tests
-tests: CXXFLAGS+=$(CXX_DEBUG_FLAGS)
+tests: CXXFLAGS+=$(CXX_TEST_FLAGS)
 tests: LDFLAGS+=$(LD_TEST_FLAGS)
 tests: testmain
 
@@ -170,6 +172,11 @@ tests/test_present_value.o: tests/test_present_value.cpp \
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_future_value.o: tests/test_future_value.cpp \
+	basic_financial.h
+	@echo "Compiling $<..."
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_perpetuity.o: tests/test_perpetuity.cpp \
 	basic_financial.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
