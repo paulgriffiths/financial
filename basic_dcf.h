@@ -200,6 +200,14 @@ double pv_stream(const std::vector<TimedCashFlow>& cashflows,
  * rates, the amount of the periodic payment which must be made to cause
  * the terminal value of the fund to equal the desired future amount.
  *
+ * Example of usage:
+ * ~~~~{.cpp}
+ * double sfp = sinking_fund_payment(10000, 0.05, 5);
+ * std::cout << "To achieve a fund value of $10,000 in 5 years at "
+ *              "5% per year, you must invest " << sfp
+ *              " dollars per year." << std::endl;
+ * ~~~~
+ *
  * \param fund_value the terminal value of the sinking fund
  * \param interest_rate the periodic interest rate
  * \param num_periods the number of periodic payments
