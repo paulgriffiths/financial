@@ -50,6 +50,8 @@ TESTOBJS+=tests/test_present_value.o
 TESTOBJS+=tests/test_future_value.o
 TESTOBJS+=tests/test_perpetuity.o
 TESTOBJS+=tests/test_annuity.o
+TESTOBJS+=tests/test_sinking_fund.o
+TESTOBJS+=tests/test_loan_repayment.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -183,6 +185,16 @@ tests/test_perpetuity.o: tests/test_perpetuity.cpp \
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_annuity.o: tests/test_annuity.cpp \
+	basic_dcf.h
+	@echo "Compiling $<..."
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_sinking_fund.o: tests/test_sinking_fund.cpp \
+	basic_dcf.h
+	@echo "Compiling $<..."
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_loan_repayment.o: tests/test_loan_repayment.cpp \
 	basic_dcf.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<

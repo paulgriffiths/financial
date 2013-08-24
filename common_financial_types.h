@@ -36,11 +36,22 @@ enum class annuity_type {
 };
 
 //! Timed cash flow structure
+/*!
+ * The `TimedCashFlow` struct describes both the amount and the timing
+ * of a future cash flow.
+ */
 struct TimedCashFlow {
-    double amount;
-    double time_period;
+    double amount;       /*!< the amount of the cash flow */
+    double time_period;  /*!< the period at which the cash flow will occur */
 
+    //! Default constructor
     explicit TimedCashFlow() : amount(0), time_period(0) {}
+
+    //! Constructor
+    /*!
+     * \param amount the amount of the cash flow
+     * \param time_period the period at which the cash flow will occur
+     */
     explicit TimedCashFlow(const double amount,
                            const double time_period) :
         amount(amount), time_period(time_period) {}

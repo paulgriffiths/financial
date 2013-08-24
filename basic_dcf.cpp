@@ -17,17 +17,24 @@
 
 using namespace financial;
 
-double financial::discount_factor(const double interest_rate,
+double financial::compound_factor(const double interest_rate,
                                   const double num_periods,
                                   const enum disc_type dt) {
     if ( dt == disc_type::discrete ) {
-        return (1 / std::pow(1 + interest_rate, num_periods));
+        return std::pow(1 + interest_rate, num_periods);
     } else if ( dt == disc_type::continuous ) {
-        return (1 / std::pow(e, interest_rate * num_periods));
+        return std::pow(e, interest_rate * num_periods);
     } else {
         assert(false);
         return 0;
     }
+}
+
+
+double financial::discount_factor(const double interest_rate,
+                                  const double num_periods,
+                                  const enum disc_type dt) {
+    return (1 / compound_factor(interest_rate, num_periods, dt));
 }
 
 
@@ -42,7 +49,7 @@ double financial::fv(const double cashflow,
                      const double interest_rate,
                      const double num_periods,
                      const enum disc_type dt) {
-    return cashflow / discount_factor(interest_rate, num_periods, dt);
+    return cashflow * compound_factor(interest_rate, num_periods, dt);
 }
 
 double financial::pv_perpetuity(const double cashflow,
@@ -50,7 +57,7 @@ double financial::pv_perpetuity(const double cashflow,
                                 const enum annuity_type at) {
     double present_value = cashflow / interest_rate;
     if ( at == annuity_type::due ) {
-        present_value *= 1 + interest_rate;
+        present_value *= compound_factor(interest_rate, 1);
     }
     return present_value;
 }
@@ -60,7 +67,7 @@ double financial::pv_annuity(const double cashflow,
                              const int num_periods,
                              const enum annuity_type at) {
     const double pvp = pv_perpetuity(cashflow, interest_rate, at);
-    return pvp - pvp * discount_factor(interest_rate, num_periods);
+    return pvp * (1 - discount_factor(interest_rate, num_periods));
 }
 
 double financial::pv_stream(const std::vector<TimedCashFlow>& cashflows,
@@ -73,3 +80,20 @@ double financial::pv_stream(const std::vector<TimedCashFlow>& cashflows,
     }
     return pv_total;
 }
+
+double financial::sinking_fund_payment(const double fund_value,
+                                       const double interest_rate,
+                                       const double num_periods) {
+    const double factor = (compound_factor(interest_rate, num_periods) - 1) /
+                               interest_rate; 
+    return fund_value / factor;
+}
+
+double financial::loan_repayment(const double loan_amount,
+                                 const double interest_rate,
+                                 const double num_periods) {
+    const double factor = interest_rate /
+                        (1 - discount_factor(interest_rate, num_periods));
+    return loan_amount * factor;
+}
+
