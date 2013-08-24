@@ -202,10 +202,10 @@ double pv_stream(const std::vector<TimedCashFlow>& cashflows,
  *
  * Example of usage:
  * ~~~~{.cpp}
- * double sfp = sinking_fund_payment(10000, 0.05, 5);
- * std::cout << "To achieve a fund value of $10,000 in 5 years at "
- *              "5% per year, you must invest " << sfp
- *              " dollars per year." << std::endl;
+ *     double sfp = financial::sinking_fund_payment(10000, 0.05, 5);
+ *     std::cout << "To achieve a fund value of $10,000 in 5 years at "
+ *                  "5% per year, you must invest " << sfp
+ *                  " dollars at the end of each year." << std::endl;
  * ~~~~
  *
  * \param fund_value the terminal value of the sinking fund
