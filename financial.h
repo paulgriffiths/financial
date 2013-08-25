@@ -12,5 +12,6 @@
 
 #include "common_financial_types.h"
 #include "basic_dcf.h"
+#include "bond.h"
 
 #endif          //  PG_FINANCIAL_H

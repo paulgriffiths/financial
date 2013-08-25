@@ -18,7 +18,7 @@ SAMPLEOUT=sample
 # Install paths
 LIB_INSTALL_PATH=/home/paul/lib/cpp
 INC_INSTALL_PATH=/home/paul/include
-HEADERS=financial.h basic_dcf.h common_financial_types.h
+HEADERS=financial.h basic_dcf.h common_financial_types.h bond.h
 
 # Compiler and archiver executable names
 AR=ar
@@ -42,7 +42,7 @@ LD_TEST_FLAGS+=-lfinancial -L$(CURDIR)
 # Object code files
 MAINOBJ=main.o
 
-OBJS=basic_dcf.o
+OBJS=basic_dcf.o bond.o
 
 TESTOBJS=tests/test_main.o
 TESTOBJS+=tests/test_discount_factor.o
@@ -52,6 +52,7 @@ TESTOBJS+=tests/test_perpetuity.o
 TESTOBJS+=tests/test_annuity.o
 TESTOBJS+=tests/test_sinking_fund.o
 TESTOBJS+=tests/test_loan_repayment.o
+TESTOBJS+=tests/test_simple_bond.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -153,7 +154,11 @@ main.o: main.cpp
 
 # Object files for library
 
-basic_dcf.o: basic_dcf.cpp basic_dcf.h
+basic_dcf.o: basic_dcf.cpp basic_dcf.h common_financial_types.h
+	@echo "Compiling $<..."
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+bond.o: bond.cpp bond.h basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
@@ -165,37 +170,42 @@ tests/test_main.o: tests/test_main.cpp
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_discount_factor.o: tests/test_discount_factor.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_present_value.o: tests/test_present_value.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_future_value.o: tests/test_future_value.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_perpetuity.o: tests/test_perpetuity.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_annuity.o: tests/test_annuity.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_sinking_fund.o: tests/test_sinking_fund.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_loan_repayment.o: tests/test_loan_repayment.cpp \
-	basic_dcf.h
+	basic_dcf.h common_financial_types.h
+	@echo "Compiling $<..."
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_simple_bond.o: tests/test_simple_bond.cpp \
+	bond.h basic_dcf.h common_financial_types.h
 	@echo "Compiling $<..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 

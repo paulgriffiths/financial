@@ -1,13 +1,10 @@
-/*
- *  basic_dcf.cpp
- *  =============
- *  Copyright 2013 Paul Griffiths
- *  Email: mail@paulgriffiths.net
- *  
- *  Implementation of basic discounted cash flow functions.
- *  
- *  Distributed under the terms of the GNU General Public License.
- *  http://www.gnu.org/licenses/
+/*!
+ * \file        basic_dcf.cpp
+ * \brief       Basic discounted cash flow functions implementation.
+ * \details     Basic discounted cash flow functions implementation.
+ * \author      Paul Griffiths
+ * \copyright   Copyright 2013 Paul Griffiths. Distributed under the terms
+ * of the GNU General Public License. <http://www.gnu.org/licenses/>
  */
 
 #include <vector>

@@ -16,9 +16,12 @@
 #include "common_financial_types.h"
 
 //! User library namespace
+
 namespace financial {
 
+
 //! Calculates a compounding factor.
+
 /*!
  * A compound factor is a number which, when multiplied by an initial
  * investment, will yield the value of that investment after a specified
@@ -48,7 +51,9 @@ double compound_factor(const double interest_rate,
                        const double num_periods = 1,
                        const enum disc_type dt = disc_type::discrete);
 
+
 //! Calculates a discount factor.
+
 /*!
  * A discount factor is a number which, when multiplied by a future
  * amount, will yield the value of the investment which, if invested today
@@ -79,7 +84,9 @@ double discount_factor(const double interest_rate,
                        const double num_periods = 1,
                        const enum disc_type dt = disc_type::discrete);
 
+
 //! Calculates the present value of a single cash flow.
+
 /*!
  * Present value is a concept related to the time value of money, which
  * states that an amount of money today is worth more than the same amount
@@ -116,7 +123,9 @@ double pv(const double cashflow,
           const double num_periods = 1,
           const enum disc_type dt = disc_type::discrete);
 
+
 //! Calculates the future value of a single invested cash flow.
+
 /*!
  * Future value is a concept related to the time value of money, which
  * states that an amount of money today is worth more than the same amount
@@ -154,7 +163,9 @@ double fv(const double cashflow,
           const double num_periods = 1,
           const enum disc_type = disc_type::discrete);
 
+
 //! Calculates the present value of a perpetuity
+
 /*!
  * A perpetuity is a periodic cash flow received from now until the
  * end of time. Although at first glance this may seem to have infinite
@@ -175,7 +186,9 @@ double pv_perpetuity(const double cashflow,
                      const double interest_rate,
                      const enum annuity_type at = annuity_type::immediate);
 
+
 //! Calculates the present value of an annuity.
+
 /*!
  * An annuity is a periodic cash flow received for a specified period
  * of time (in reality, many annuities are received in the form of
@@ -198,7 +211,9 @@ double pv_annuity(const double cashflow,
                   const int num_periods,
                   const enum annuity_type at = annuity_type::immediate);
 
+
 //! Calculates the present value of a stream of cash flows.
+
 /*!
  * Just as the present value of a single payment can be calculated, so
  * can the present value of a stream of timed payments. This technique
@@ -214,7 +229,9 @@ double pv_annuity(const double cashflow,
 double pv_stream(const std::vector<TimedCashFlow>& cashflows,
                  const double interest_rate);
 
+
 //! Calculates the periodic payment to a sinking fund.
+
 /*!
  * A sinking fund is an investment which is designed to equal a specific
  * future value at a specified point in time. It is often used as a fund
@@ -242,6 +259,7 @@ double pv_stream(const std::vector<TimedCashFlow>& cashflows,
 double sinking_fund_payment(const double fund_value,
                             const double interest_rate,
                             const double num_periods);
+
 
 //! Calculates the periodic repayment of a loan.
 
