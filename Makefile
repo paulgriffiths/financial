@@ -11,13 +11,16 @@
 # =================
 
 # Library and executable names
-OUT=libfinancial.a
+LIBNAME=financial
+OUT=lib$(LIBNAME).a
 TESTOUT=unittests
 SAMPLEOUT=sample
 
 # Install paths
-LIB_INSTALL_PATH=/home/paul/lib/cpp
-INC_INSTALL_PATH=/home/paul/include
+#LIB_INSTALL_PATH=/home/paul/lib/cpp
+INC_INSTALL_PREFIX=paulgrif
+INC_INSTALL_PATH=$(HOME)/include/$(INC_INSTALL_PREFIX)
+LIB_INSTALL_PATH=$(HOME)/lib/cpp
 HEADERS=financial.h basic_dcf.h common_financial_types.h bond.h
 
 # Compiler and archiver executable names
@@ -37,11 +40,9 @@ CXX_TEST_FLAGS=-ggdb -DDEBUG -DDEBUG_ALL
 LDFLAGS=
 LD_TEST_FLAGS=-lboost_system -lboost_thread -lboost_unit_test_framework
 LD_TEST_FLAGS+=-lstdc++
-LD_TEST_FLAGS+=-lfinancial -L$(CURDIR)
+LD_TEST_FLAGS+=-l$(LIBNAME) -L$(CURDIR)
 
 # Object code files
-MAINOBJ=main.o
-
 OBJS=basic_dcf.o bond.o
 
 TESTOBJS=tests/test_main.o
@@ -90,17 +91,17 @@ tests: testmain
 # install - installs library and headers
 .PHONY: install
 install:
-	@if [ ! -d $(INC_INSTALL_PATH)/paulgrif ]; then \
-		mkdir $(INC_INSTALL_PATH)/paulgrif; fi
+	@if [ ! -d $(INC_INSTALL_PATH) ]; then \
+		mkdir $(INC_INSTALL_PATH); fi
 	@echo "Copying library to $(LIB_INSTALL_PATH)..."
 	@cp $(OUT) $(LIB_INSTALL_PATH)
 	@echo "Copying headers to $(INC_INSTALL_PATH)..."
-	@cp $(HEADERS) $(INC_INSTALL_PATH)/paulgrif
+	@cp $(HEADERS) $(INC_INSTALL_PATH)
 	@echo "Done."
 
 # sample - makes sample program
 .PHONY: sample
-sample: LDFLAGS+=-lfinancial
+sample: LDFLAGS+=-l$(LIBNAME)
 sample: main.o
 	@echo "Linking sample program..."
 	@$(CXX) -o $(SAMPLEOUT) main.o $(LDFLAGS)

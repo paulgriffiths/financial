@@ -1,3 +1,5 @@
+# Doxygen configuration file for C++ financial library
+
 PROJECT_NAME="C++ Financial Library"
 OUTPUT_LANGUAGE=English
 INPUT=./

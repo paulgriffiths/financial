@@ -16,6 +16,7 @@ using namespace financial;
 
 double SimpleBond::value(const double discount_rate) const {
     double ret_value = 0;
+
     if ( m_coupon_frequency ) {
         std::vector<TimedCashFlow> tcf;
         const double cpymt = m_principal * m_coupon / m_coupon_frequency;
